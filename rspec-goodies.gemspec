@@ -5,11 +5,10 @@ Gem::Specification.new do |spec|
   spec.version = "0.0.1"
   spec.authors = ["James Hu"]
 
-  spec.summary = "RSpec goodie grab bag of helpers and matchers"
-  spec.description = "RSpec goodie grab bag of helpers and matchers"
+  spec.summary = "RSpec goodies full of helpers, matchers, and more"
+  spec.description = "RSpec goodies full of helpers, matchers, and more"
   spec.homepage = "https://github.com/axsuul/rspec-goodies"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage

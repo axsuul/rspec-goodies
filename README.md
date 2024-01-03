@@ -24,7 +24,7 @@ gem install rspec-goodies
 
 ## Usage
 
-Within `rails_helper.rb`
+Within `spec_helper.rb` or `rails_helper.rb`
 
 ```ruby
 require "rspec-goodies"
