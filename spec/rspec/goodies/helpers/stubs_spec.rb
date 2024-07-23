@@ -35,9 +35,9 @@ describe RSpec::Goodies::Helpers::Stubs do
     end
   end
 
-  describe "#stub_class_const_and_merge" do
+  describe "#stub_merged_hash_class_const" do
     it "can stub class constant with hash merged into existing" do
-      stub_class_const_and_merge(StubTestClass, "NESTED_HASH",
+      stub_merged_hash_class_const(StubTestClass, "NESTED_HASH",
         listing_variant: {
           available_quantity: {
             maximum: 2,

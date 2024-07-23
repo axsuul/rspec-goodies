@@ -28,7 +28,7 @@ module RSpec
         end
 
         # Stubs existing constant with resulting hash deep merged with existing hash and hash passed in
-        def stub_class_const_and_merge(klass, const_string, hash)
+        def stub_merged_hash_class_const(klass, const_string, hash)
           raise ArgumentError, "must pass in hash" unless hash.is_a?(Hash)
 
           existing_hash = klass.const_get(const_string)
