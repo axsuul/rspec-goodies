@@ -141,13 +141,10 @@ module RSpec
           ::Sidekiq.redis do |redis|
             redis.incr("busy")
             redis.sadd("processes", process_id)
-            redis.hmset(
-              process_id, "info",
-              process_data, "at",
-              Time.current.to_f, "busy",
-              @sidekiq_job_in_progress_count += 1,
-            )
-            redis.hmset("#{process_id}:work", @sidekiq_job_in_progress_thread_id += 1, job_data)
+            redis.hset(process_id, "info", process_data)
+            redis.hset(process_id, "at", Time.current.to_f)
+            redis.hset(process_id, "busy", @sidekiq_job_in_progress_count += 1)
+            redis.hset("#{process_id}:work", @sidekiq_job_in_progress_thread_id += 1, job_data)
           end
         end
       end
