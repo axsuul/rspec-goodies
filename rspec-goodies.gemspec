@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "rspec-goodies"
-  spec.version = "0.1.1"
+  spec.version = "0.1.2"
   spec.authors = ["James Hu"]
 
   spec.summary = "RSpec goodies full of helpers, matchers, and more"

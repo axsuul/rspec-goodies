@@ -46,7 +46,7 @@ module RSpec
         def process_sidekiq_payloads(payloads)
           payloads.each do |payload|
             payload_hash = ::Sidekiq.load_json(payload)
-            worker_class = ::Sidekiq::Testing.constantize(payload_hash["class"])
+            worker_class = Object.const_get(payload_hash["class"])
 
             worker_class.process_job(payload_hash)
           end

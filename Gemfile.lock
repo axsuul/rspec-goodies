@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rspec-goodies (0.1.1)
+    rspec-goodies (0.1.2)
       activesupport
       byebug
       rails
