@@ -98,6 +98,14 @@ RSpec.describe "Sidekiq Matchers" do
       end.to have_sidekiq_jobs_enqueued(ParentWorker, 1, args: [1], at: Time.utc(2018, 1, 1, 0, 2, 0))
     end
 
+    it "doesn't match if not scheduled" do
+      Timecop.freeze(Time.utc(2018, 1, 1, 0, 0, 0))
+
+      expect do
+        ParentWorker.perform_async(1)
+      end.to not_have_sidekiq_jobs_enqueued(ParentWorker, 1, args: [1], at: Time.utc(2018, 1, 1, 0, 1, 0))
+    end
+
     it "can match unscheduled" do
       expect do
         ParentWorker.perform_in(1.minute, 1)

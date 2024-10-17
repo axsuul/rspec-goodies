@@ -44,13 +44,14 @@ class SidekiqJobsEnqueuedMatcher
 
           expect(Array(job[key])).to match(value)
         when "at"
-          if (scheduled_at = job[key])
-            # It's a float in job
-            expect(scheduled_at).to eq(value.to_f)
-
-          # Otherwise if nil, then we are looking for jobs that aren't scheduled
-          else
+          # If nil, then we are looking for jobs that aren't scheduled
+          if value.nil?
             expect(job.key?("at")).to eq false
+          else
+            # It's a float in job
+            scheduled_at = job[key]
+
+            expect(scheduled_at).to eq(value.to_f)
           end
         when "bid"
           expect(job[key]).to match(value)
