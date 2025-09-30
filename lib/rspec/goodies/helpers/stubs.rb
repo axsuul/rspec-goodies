@@ -9,12 +9,6 @@ module RSpec
           service_stub
         end
 
-        def stub_rails_logger_as_spy
-          instance_spy("ActiveSupport::Logger").tap do |stub|
-            allow(::Rails).to receive(:logger).and_return(stub)
-          end
-        end
-
         def stub_class_const(klass, const_string, value)
           raise ArgumentError, "a Class or Module must be passed in" if !klass.is_a?(Class) && !klass.is_a?(Module)
 
@@ -38,7 +32,7 @@ module RSpec
 
         # Stub environment variable so that it doesn't leak out of tests
         def stub_env(name, value)
-          allow(ENV).to receive(:[]).with(name).and_return(value)
+          allow(ENV).to(receive(:[]).with(name).and_return(value))
         end
 
         # Only works with nested credentials for now
@@ -68,7 +62,25 @@ module RSpec
             end
           end
 
-          allow(::Rails.application).to receive(:credentials).and_return(OpenStruct.new(stubbed_credentials_config))
+          allow(::Rails.application).to(receive(:credentials).and_return(OpenStruct.new(stubbed_credentials_config)))
+        end
+
+        # Ensure scoped otherwise we get "has leaked into another example" errors
+        def with_rails_logger_stubbed_as_spy
+          raise ArgumentError, "block required" unless block_given?
+
+          original_logger = ::Rails.logger
+          logger_spy = instance_spy("ActiveSupport::Logger")
+
+          begin
+            allow(::Rails).to(receive(:logger).and_return(logger_spy))
+
+            yield(logger_spy)
+          ensure
+            allow(::Rails).to(receive(:logger).and_return(original_logger))
+          end
+
+          logger_spy
         end
       end
     end

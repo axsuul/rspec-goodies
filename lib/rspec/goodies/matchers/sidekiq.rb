@@ -66,7 +66,7 @@ class SidekiqJobsEnqueuedMatcher
         end
 
         matched_count += 1
-      rescue RSpec::Expectations::ExpectationNotMetError
+      rescue RSpec::Expectations::ExpectationNotMetError => e
         # Doesn't contribute to matched_count if any expectations fail
       end
 
